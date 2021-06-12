@@ -2,32 +2,31 @@ package com.example.deliverable1;
 
 public class User {
 
-    private String username;
+    private String email;
     private String password;
-    private boolean isStudent;
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String userType;
 
     // Constructor
-    public User(String username, String password, boolean isStudent) {
-        this.username = username;
+    public User(String email, String password, String firstName, String lastName, String userType) {
+        this.email = email;
         this.password = password;
-        this.isStudent = isStudent;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userType = userType;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public boolean isStudent() {
-        return isStudent;
+        return (this.firstName + this.lastName);
     }
 
     public boolean login(String username, String password) {
         return true;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean validEmail(String email) {
+        return true;
     }
 
 }

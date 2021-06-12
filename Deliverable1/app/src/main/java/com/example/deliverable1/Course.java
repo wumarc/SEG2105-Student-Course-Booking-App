@@ -1,5 +1,4 @@
 package com.example.deliverable1;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Course {
@@ -12,9 +11,14 @@ public class Course {
     private Integer capacity;
     private ArrayList<Lecture> lectures;
 
-
-    public ArrayList<Lecture> getLectures() {
-        return lectures;
+    public Course(String description, String courseCode, String courseName, Instructor instructor, ArrayList<Student> students, Integer capacity, ArrayList<Lecture> lectures) {
+        this.description = description;
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.instructor = instructor;
+        this.students = students;
+        this.capacity = capacity;
+        this.lectures = lectures;
     }
 
     public void setLectures(ArrayList<Lecture> lectures) {
@@ -37,8 +41,8 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
+    public void setStudent(Student student) {
+        //TODO
     }
 
     public void setCapacity(Integer capacity) {
@@ -67,6 +71,10 @@ public class Course {
 
     public Integer getCapacity() {
         return capacity;
+    }
+
+    public ArrayList<Lecture> getLectures() {
+        return lectures;
     }
 
 }
