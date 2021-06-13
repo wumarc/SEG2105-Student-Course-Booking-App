@@ -1,4 +1,5 @@
 package com.example.deliverable1;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Course {
@@ -19,10 +20,12 @@ public class Course {
         this.students = students;
         this.capacity = capacity;
         this.lectures = lectures;
+        this.students = new ArrayList<Student>();
+        this.lectures = new ArrayList<Lecture>();
     }
 
-    public void setLectures(ArrayList<Lecture> lectures) {
-        this.lectures = lectures;
+    public void setLecture(Lecture lecture) {
+        lectures.add(lecture);
     }
 
     public void setDescription(String description) {
@@ -42,7 +45,7 @@ public class Course {
     }
 
     public void setStudent(Student student) {
-        //TODO
+        students.add(student);
     }
 
     public void setCapacity(Integer capacity) {

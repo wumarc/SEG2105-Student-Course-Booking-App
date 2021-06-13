@@ -21,12 +21,12 @@ public class User {
         return (this.firstName + this.lastName);
     }
 
-    public boolean login(String username, String password) {
-        return true;
+    public boolean login(String email, String password) {
+        return this.email.equals(email) && this.password.equals(password);
     }
 
     public boolean validEmail(String email) {
-        return true;
+        return this.email.equals(email);
     }
 
 }
