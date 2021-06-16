@@ -1,5 +1,5 @@
-package com.example.deliverable1;
-import java.lang.reflect.Array;
+package com.example.deliverable1.Class;
+
 import java.util.ArrayList;
 
 public class Course {

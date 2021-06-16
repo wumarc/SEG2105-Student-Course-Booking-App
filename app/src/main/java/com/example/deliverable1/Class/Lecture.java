@@ -1,4 +1,4 @@
-package com.example.deliverable1;
+package com.example.deliverable1.Class;
 
 public class Lecture {
 
