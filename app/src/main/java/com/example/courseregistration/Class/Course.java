@@ -1,13 +1,13 @@
-package com.example.courseregistration;
+package com.example.courseregistration.Class;
 
-public class courseHelper {
+public class Course {
     String name,code;
 
-    public courseHelper() {
+    public Course() {
 
     }
 
-    public courseHelper(String name, String code) {
+    public Course(String code, String name) {
         this.name = name;
         this.code = code;
     }
