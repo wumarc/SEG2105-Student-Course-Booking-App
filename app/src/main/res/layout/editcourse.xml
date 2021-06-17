@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#8BC34A"
+    android:paddingHorizontal="30dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit course"
+        android:textColor="#0E0808"
+        android:textStyle="bold"
+        android:textSize="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+        <EditText
+            android:id="@+id/coursecodeedit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rectangle"
+            android:hint="Type in course code"
+            android:inputType="text"
+            android:paddingVertical="15dp"
+            android:paddingLeft="30dp"
+            android:textColor="#000000"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp">
+        <EditText
+            android:id="@+id/coursename1edit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/rectangle"
+            android:hint="Type in course name"
+            android:inputType="text"
+            android:paddingVertical="15dp"
+            android:paddingLeft="30dp"
+            android:textColor="#000000"
+            android:focusableInTouchMode="false"/>
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp">
+    <Button
+        android:id="@+id/backbedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textColor="#000000"
+        android:layout_marginRight="20dp"
+        android:textSize="20dp"
+        android:textAllCaps="false"/>
+
+        <Button
+            android:id="@+id/editbutt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit course"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+
+</LinearLayout>
