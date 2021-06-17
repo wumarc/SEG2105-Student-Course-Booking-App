@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:background="#8BC34A"
+    android:paddingHorizontal="30dp">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp">
+        <TextView
+            android:id="@+id/logoutadmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log out"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginRight="30dp"
+            />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin page"
+        android:textColor="#0E0808"
+        android:textStyle="bold"
+        android:textSize="40dp"
+        />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/newcourseb"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Create new course"
+        android:textColor="#000000"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        android:textAllCaps="false"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <EditText
+            android:id="@+id/coursenameee"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/rectangle"
+            android:hint="Type in course code to edit or delete"
+            android:inputType="text"
+            android:paddingVertical="15dp"
+            android:paddingLeft="30dp"
+            android:textColor="#000000" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/editcourse4"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Edit course"
+        android:textColor="#000000"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        android:textAllCaps="false"/>
+    <Button
+        android:id="@+id/deletecourse"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Delete course"
+        android:textColor="#000000"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        android:textAllCaps="false"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+        <EditText
+            android:id="@+id/username21"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:background="@drawable/rectangle"
+            android:hint="Type in a username to be deleted"
+            android:inputType="textEmailAddress"
+            android:paddingVertical="15dp"
+            android:paddingLeft="40dp"
+            android:textColor="#000000" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/deleteuser"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Delete user"
+        android:textColor="#000000"
+        android:layout_marginTop="30dp"
+        android:textSize="25dp"
+        android:textAllCaps="false"/>
+</LinearLayout>

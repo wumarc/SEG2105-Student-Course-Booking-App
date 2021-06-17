@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "431108114599",
+    "project_id": "courseregistration-c1b21",
+    "storage_bucket": "courseregistration-c1b21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:431108114599:android:841b8365d6e6f51bca7382",
+        "android_client_info": {
+          "package_name": "com.example.courseregistration"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "431108114599-664u4lpnpas0ghop3o2sjl3to34p8p95.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqlbvuq1pdKHLymCHfHbqStDqN6xNjEmQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431108114599-664u4lpnpas0ghop3o2sjl3to34p8p95.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
