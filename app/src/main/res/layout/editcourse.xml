@@ -19,6 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
+
         <EditText
             android:id="@+id/coursecodeedit"
             android:layout_width="match_parent"
@@ -36,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp">
+
         <EditText
             android:id="@+id/coursename1edit"
             android:layout_width="match_parent"
@@ -46,7 +48,7 @@
             android:paddingVertical="15dp"
             android:paddingLeft="30dp"
             android:textColor="#000000"
-            android:focusableInTouchMode="false"/>
+            android:focusableInTouchMode="true"/>
 
     </RelativeLayout>
 

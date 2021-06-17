@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseRegistration">
 
-        <activity android:name=".MainActivity"
+        <activity android:name=".Activity.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,19 +20,19 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".SignUpActivity"
+        <activity android:name=".Activity.SignUpActivity"
             android:windowSoftInputMode="stateHidden">
         </activity>
 
-        <activity android:name=".AdminLogin"
+        <activity android:name=".Activity.AdminLogin"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".instructorLogin"
+        <activity android:name=".Activity.InstructorLogin"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".StudentLogin"
+        <activity android:name=".Activity.StudentLogin"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".addCourse"
+        <activity android:name=".Activity.AddCourse"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".editCourse"
+        <activity android:name=".Activity.EditCourse"
             android:windowSoftInputMode="stateHidden"></activity>
 
     </application>

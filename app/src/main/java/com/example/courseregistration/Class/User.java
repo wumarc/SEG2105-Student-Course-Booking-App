@@ -1,18 +1,18 @@
-package com.example.courseregistration;
+package com.example.courseregistration.Class;
 
-public class UserHelper {
+public class User {
 
-    String name,username, email,password,usertype;
+    String name, username, email, password, usertype;
 
-    public UserHelper() {
+    public User() {
     }
 
-    public UserHelper(String username, String password) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
-    public UserHelper(String name, String username, String email, String password, String usertype) {
+    public User(String name, String username, String email, String password, String usertype) {
         this.name = name;
         this.username = username;
         this.email = email;
