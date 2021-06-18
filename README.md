@@ -3,7 +3,7 @@ A repository to store the source code of the Student Course Booking App of Group
 
 Members of the group:
 
-Nasary, Wasi
-Rabie, Mohammed
-Traboulsi, Elli
-WU, Marc
+* Nasary, Wasi
+* Rabie, Mohammed
+* Traboulsi, Elli
+* WU, Marc
