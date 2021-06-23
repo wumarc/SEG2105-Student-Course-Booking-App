@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/welcome"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="1dp"
+        android:gravity="center"
+        android:text="Welcome text"
+        android:textColor="#000000"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toTopOf="@+id/searchBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="571dp"
+        android:queryHint="Enter a course code or course name"
+        app:layout_constraintBottom_toTopOf="@+id/showAssignedCoursesBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcome">
+
+    </SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/coursesRecyclerView"
+        android:layout_width="416dp"
+        android:layout_height="573dp"
+        android:layout_marginTop="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/showAssignedCoursesBtn"
+        app:layout_constraintStart_toEndOf="@+id/showAssignedCoursesBtn"
+        app:layout_constraintTop_toTopOf="@+id/searchBar" />
+
+    <Button
+        android:id="@+id/showAssignedCoursesBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="5dp"
+        android:height="200dp"
+        android:text="@string/assigned_courses"
+        android:textAllCaps="false"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/instructorSignoutBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+
+    <Button
+        android:id="@+id/instructorSignoutBtn"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:text="@string/sign_out"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/showAssignedCoursesBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/showAssignedCoursesBtn"
+        app:layout_constraintTop_toTopOf="@+id/showAssignedCoursesBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.courseregistration.Activity.AdminActivity.AdminMenu;
+import com.example.courseregistration.Activity.InstructorActivity.InstructorMenu;
+import com.example.courseregistration.Activity.StudentActivity.StudentMenu;
 import com.example.courseregistration.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Assign UI elements to workable objects
         username = findViewById(R.id.usernamelogin);
@@ -83,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if(snapshot.exists()){
                     // username.setError(null);
                     String passwordfromdb = snapshot.child(enteredUsername).child("password").getValue(String.class);
@@ -95,36 +97,22 @@ public class MainActivity extends AppCompatActivity {
                         //  username.setError(null);
                         String usertypefromdb = snapshot.child(enteredUsername).child("usertype").getValue(String.class);
 
-                        Intent adminIntent = new Intent(MainActivity.this, AdminLogin.class);
-                        Intent instructorIntent = new Intent(MainActivity.this, InstructorLogin.class);
-                        Intent studentIntent = new Intent(MainActivity.this, StudentLogin.class);
-
-                        adminIntent.putExtra("name", namefromdb);
-                        adminIntent.putExtra("username", usernamefromdb);
-                        adminIntent.putExtra("email", emailfromdb);
-                        adminIntent.putExtra("password", passwordfromdb);
-                        adminIntent.putExtra("usertype", usertypefromdb);
-
-                        instructorIntent.putExtra("name", namefromdb);
-                        instructorIntent.putExtra("username", usernamefromdb);
-                        instructorIntent.putExtra("email", emailfromdb);
-                        instructorIntent.putExtra("password", passwordfromdb);
-                        instructorIntent.putExtra("usertype", usertypefromdb);
-
-                        studentIntent.putExtra("name", namefromdb);
-                        studentIntent.putExtra("username", usernamefromdb);
-                        studentIntent.putExtra("email", emailfromdb);
-                        studentIntent.putExtra("password", passwordfromdb);
-                        studentIntent.putExtra("usertype", usertypefromdb);
+                        Intent adminIntent = new Intent(MainActivity.this, AdminMenu.class);
+                        Intent instructorIntent = new Intent(MainActivity.this, InstructorMenu.class);
+                        Intent studentIntent = new Intent(MainActivity.this, StudentMenu.class);
 
                         if(usertypefromdb != null && usertypefromdb.equalsIgnoreCase("student")){
+                            studentIntent.putExtra("NAME", namefromdb);
                             startActivity(studentIntent);
+//                            finish();
                         } else if(usertypefromdb != null && usertypefromdb.equalsIgnoreCase("instructor")){
+                            instructorIntent.putExtra("NAME", namefromdb);
                             startActivity(instructorIntent);
-                        } else{
+//                            finish();
+                        } else {
                             startActivity(adminIntent);
+//                            finish();
                         }
-
                     } else if (passwordfromdb != null && !passwordfromdb.equals(enteredPassword)){
                         password.setError("Wrong password");
                         password.requestFocus();
@@ -133,15 +121,10 @@ public class MainActivity extends AppCompatActivity {
                     username.setError("username does not exist");
                     username.requestFocus();
                 }
-
             }
-
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-            }
-
+            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
         });
-
     }
 
 }

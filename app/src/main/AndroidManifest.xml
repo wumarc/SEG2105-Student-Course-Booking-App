@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.courseregistration">
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,31 +9,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseRegistration">
-
-        <activity android:name=".Activity.MainActivity"
+        <activity android:name=".Activity.InstructorActivity.EditCourseAsInstructor" />
+        <activity
+            android:name=".Activity.MainActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity android:name=".Activity.SignUpActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
-
-        <activity android:name=".Activity.AdminLogin"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".Activity.InstructorLogin"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".Activity.StudentLogin"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".Activity.AddCourse"
-            android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".Activity.EditCourse"
-            android:windowSoftInputMode="stateHidden"></activity>
-
+        <activity
+            android:name=".Activity.SignUpActivity"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.AdminActivity.AdminMenu"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.InstructorActivity.InstructorMenu"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.StudentActivity.StudentMenu"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.AdminActivity.AddCourseAsAdmin"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".Activity.AdminActivity.EditCourseAsAdmin"
+            android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

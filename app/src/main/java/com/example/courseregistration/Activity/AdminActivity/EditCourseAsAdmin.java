@@ -1,4 +1,4 @@
-package com.example.courseregistration.Activity;
+package com.example.courseregistration.Activity.AdminActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,11 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.courseregistration.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class EditCourse extends Activity {
+public class EditCourseAsAdmin extends Activity {
 
     private TextView codeTView, nameTView;
     private Button backBtn,editBtn;
@@ -21,7 +22,7 @@ public class EditCourse extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editcourse);
+        setContentView(R.layout.activity_edit_course_as_admin);
 
         codeTView = findViewById(R.id.coursecodeedit);
         nameTView = findViewById(R.id.coursename1edit);
@@ -49,8 +50,8 @@ public class EditCourse extends Activity {
 
 
                 // Send uer back to admin page
-                Toast.makeText(EditCourse.this, "Course successfully edited", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EditCourse.this, AdminLogin.class);
+                Toast.makeText(EditCourseAsAdmin.this, "Course successfully edited", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(EditCourseAsAdmin.this, AdminMenu.class);
                 startActivity(intent);
                 finish();
 
@@ -60,7 +61,7 @@ public class EditCourse extends Activity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditCourse.this, AdminLogin.class);
+                Intent intent = new Intent(EditCourseAsAdmin.this, AdminMenu.class);
                 startActivity(intent);
                 finish();
             }

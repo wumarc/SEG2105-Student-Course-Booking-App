@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">CourseRegistration</string>
+    <string name="assigned_courses">Assigned courses</string>
+    <string name="sign_out">Sign out</string>
+    <string name="xxxxxx">ABCDE</string>
+    <string name="course_code">Course code:</string>
+    <string name="course_name">Course name:</string>
+    <string name="dummy_name">Dummy name</string>
+    <string name="instructor">Instructor:</string>
+    <string name="to_be_assigned">To be assigned</string>
 </resources>
