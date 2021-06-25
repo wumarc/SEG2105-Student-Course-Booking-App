@@ -1,6 +1,5 @@
 package com.example.courseregistration;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +8,9 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.courseregistration.Activity.InstructorActivity.EditCourseAsInstructor;
 import com.example.courseregistration.Class.Course;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 

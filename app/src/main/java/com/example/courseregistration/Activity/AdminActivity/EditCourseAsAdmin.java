@@ -47,6 +47,9 @@ public class EditCourseAsAdmin extends Activity {
                 reference.child(codeStr).removeValue();
                 reference.child(code3).child("code").setValue(code3);
                 reference.child(code3).child("name").setValue(name3);
+                reference.child(code3).child("instructor").setValue("To be assigned");
+                reference.child(code3).child("description").setValue("");
+                reference.child(code3).child("capacity").setValue(0);
 
 
                 // Send uer back to admin page

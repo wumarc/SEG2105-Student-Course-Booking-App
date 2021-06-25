@@ -8,4 +8,6 @@
     <string name="dummy_name">Dummy name</string>
     <string name="instructor">Instructor:</string>
     <string name="to_be_assigned">To be assigned</string>
+    <string name="add">Add</string>
+    <string name="add_lecture">Add lecture</string>
 </resources>

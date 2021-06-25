@@ -122,14 +122,43 @@
             tools:layout_editor_absoluteX="20dp"
             tools:layout_editor_absoluteY="39dp" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <EditText
-            android:id="@+id/lectures_detail"
+            android:id="@+id/lectures_days"
             android:layout_width="185dp"
             android:layout_height="50dp"
+            android:hint="Day"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="225dp" />
+        <EditText
+            android:id="@+id/lectures_hours"
+            android:layout_width="185dp"
+            android:hint="Hours"
+            android:layout_height="50dp" />
+        </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/addLecture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_lecture" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/showLectures"
+        android:layout_width="310dp"
+        android:layout_height="130dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

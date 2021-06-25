@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CourseRegistration">
+        <activity android:name=".Activity.InstructorActivity.AssignedCourses" />
         <activity android:name=".Activity.InstructorActivity.EditCourseAsInstructor" />
         <activity
             android:name=".Activity.MainActivity"

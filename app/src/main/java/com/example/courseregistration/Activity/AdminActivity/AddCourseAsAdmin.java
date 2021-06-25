@@ -54,7 +54,7 @@ public class AddCourseAsAdmin extends Activity {
 
                 String courseName = name.getText().toString();
                 String courseCode = code.getText().toString().toUpperCase();
-                Course course = new Course(courseName, courseCode, "", 0, null, null, null);
+                Course course = new Course(courseName, courseCode, "", 0, "TBD", null, null);
 
                 // Check for unique course code and create course
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
