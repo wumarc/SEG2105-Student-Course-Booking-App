@@ -6,8 +6,8 @@ public class Course {
     String name, code, description;
     int capacity;
     String instructor;
-    ArrayList<Student> students;
-    ArrayList<Lecture> lectures;
+    public ArrayList<Student> students;
+    public ArrayList<Lecture> lectures;
 
     public Course() {
     }

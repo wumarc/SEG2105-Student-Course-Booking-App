@@ -3,16 +3,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.courseregistration.Activity.InstructorActivity.EditCourseAsInstructor;
 import com.example.courseregistration.Class.Course;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
 
@@ -58,6 +54,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView courseCode, courseName, instructorName;
+        RecyclerView lectures;
 
         public MyViewHolder(@NonNull @NotNull View itemView, final OnItemClickListener listener) {
             super(itemView);
@@ -77,7 +74,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                 }
             });
         }
-
     }
 
 }

@@ -1,19 +1,22 @@
 package com.example.courseregistration.Activity.InstructorActivity;
+import com.example.courseregistration.Class.Course;
 import com.example.courseregistration.Class.Lecture;
 import com.example.courseregistration.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -28,12 +31,14 @@ import java.util.ArrayList;
 
 public class EditCourseAsInstructor extends AppCompatActivity {
 
-    TextView courseCode, courseName;
+    // Database
+    private FirebaseDatabase rootNode;
+    private DatabaseReference reference;
+
+    TextView courseCode, courseName, firstLecture, secondLecture;
     EditText capacity, lecturesDay, lecturesHours, students, description;
     CheckBox teachThisCourseCheckbox;
     Button addLecture, saveBtn;
-    RecyclerView showLecture;
-    FirebaseDatabase rootDb;
     DatabaseReference coursesNode;
 
     @Override
@@ -41,10 +46,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course_as_instructor);
 
-        // Connect database
-        rootDb = FirebaseDatabase.getInstance();
-        coursesNode = rootDb.getReference("courses");
-
+        coursesNode = FirebaseDatabase.getInstance().getReference("courses");  // Connect database
         // Create objects for UI components
         courseCode = findViewById(R.id.course_code_detail);
         courseName = findViewById(R.id.course_name_detail);
@@ -53,14 +55,14 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         lecturesHours = findViewById(R.id.lectures_hours);
         capacity = findViewById(R.id.capacity_detail);
         description = findViewById(R.id.editTextTextMultiLine);
-        addLecture = findViewById(R.id.addLecture);
-        showLecture = findViewById(R.id.showLectures);
         saveBtn = findViewById(R.id.button);
+        addLecture = findViewById(R.id.addLecture);
+        firstLecture = findViewById(R.id.firstLecture);
+        secondLecture = findViewById(R.id.secondLecture);
 
         // Pass course information
         String courseCodeStr = getIntent().getStringExtra("COURSE CODE");
         courseCode.setText(courseCodeStr);
-        ArrayList<Lecture> lectures = new ArrayList<Lecture>();
 
         // Check if the instructor is assigned to this course yet on start
         coursesNode.addValueEventListener(new ValueEventListener() {
@@ -68,27 +70,32 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
                     // get the rest of the data from firebase
-                    String instructorName = snapshot.child(courseCodeStr).child("instructor").getValue(String.class);
-                    String courseNameStr = snapshot.child(courseCodeStr).child("name").getValue(String.class);
-                    String descriptionStr = snapshot.child(courseCodeStr).child("description").getValue(String.class);
-                    Integer capacityStr = snapshot.child(courseCodeStr).child("capacity").getValue(Integer.class);
-//                    ArrayList<Lecture> lectures = snapshot.child(courseCodeStr).child("lectures").getValue(ArrayList<Lecture>.class);
+                    Course course = snapshot.child(courseCodeStr).getValue(Course.class);
+                    String instructorName = course.getInstructor();
+                    String courseNameStr = course.getName();
+                    String descriptionStr = course.getDescription();
+                    Integer capacityStr = course.getCapacity();
+                    ArrayList<Lecture> lectures = course.getLectures();
 
-                    // Show the data
-                    courseName.setText(courseNameStr);
+                    String lecture1Str = lectures.get(0).getDay() + " " + lectures.get(0).getTime();
+                    String lecture2Str = lectures.get(1).getDay() + " " + lectures.get(1).getTime();
 
-                    String instructorNameee = getIntent().getStringExtra("INSTRUCTOR NAME");
-                    // Set initial state
-                    if (instructorName.equals(instructorNameee)) {
+                    courseName.setText(courseNameStr); // Show the data
+                    String nameInstructor = getIntent().getStringExtra("INSTRUCTOR NAME");
+                    if (instructorName.equals(nameInstructor)) {
                         teachThisCourseCheckbox.setChecked(true);
-                        capacity.setText(capacityStr.toString());
+                        capacity.setText(String.valueOf(capacityStr));
                         description.setText(descriptionStr);
+                        firstLecture.setText(lecture1Str);
+                        secondLecture.setText(lecture2Str);
                     }
                     checkBox();
                 }
             };
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {}
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                Toast.makeText(EditCourseAsInstructor.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
         });
 
         teachThisCourseCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -100,25 +107,23 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                 } else {
                     openDialog(courseCodeStr); // open only when they un-assign themselves
                     checkBox(); // Disable EditText field
-//                    if (!checkBox()) {
-//                        capacity.setText(0);
-//                        description.setText("");
-//                        saveBtn.setEnabled(false);
-//                    }
                 }
             }
         });
 
-//        showLecture.
-
+        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Lecture lecture = new Lecture(lecturesHours.getText().toString(), lecturesDay.getText().toString());
-                lectures.add(lecture);
-                lecturesDay.setText("");
-                lecturesHours.setText("");
-                Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
+                if (lectures.size() == 2) {
+                    Toast.makeText(getApplicationContext(), "Maximum 2 lectures per course", Toast.LENGTH_SHORT).show();
+                } else {
+                    Lecture lecture = new Lecture(lecturesHours.getText().toString(), lecturesDay.getText().toString());
+                    lectures.add(lecture);
+                    lecturesDay.setText("");
+                    lecturesHours.setText("");
+                    Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -145,7 +150,6 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                     coursesNode.child(courseCodeStr).child("description").setValue(descriptionStr);
                     coursesNode.child(courseCodeStr).child("lectures").setValue(lectures);
                     finish();
-//                    startActivity(new Intent(getApplicationContext(), InstructorMenu.class));
                     Toast.makeText(EditCourseAsInstructor.this, "Course successfully assigned to you", Toast.LENGTH_SHORT).show();
                 }
             }
