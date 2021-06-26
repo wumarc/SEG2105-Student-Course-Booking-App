@@ -1,12 +1,14 @@
 package com.example.courseregistration.Activity.InstructorActivity;
 import com.example.courseregistration.Class.Course;
 import com.example.courseregistration.Class.Lecture;
+import com.example.courseregistration.LectureAdapter;
 import com.example.courseregistration.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -16,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -25,28 +26,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditCourseAsInstructor extends AppCompatActivity {
 
-    // Database
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
-
-    TextView courseCode, courseName, firstLecture, secondLecture;
+    TextView courseCode, courseName;
     EditText capacity, lecturesDay, lecturesHours, students, description;
     CheckBox teachThisCourseCheckbox;
     Button addLecture, saveBtn;
-    DatabaseReference coursesNode;
+    RecyclerView lectureRecyclerView;
+    LectureAdapter lectureAdapter;
+    ArrayList<Lecture> lectureList;
+
+    DatabaseReference listCoursesDb = FirebaseDatabase.getInstance().getReference("courses");  // Connect database
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course_as_instructor);
 
-        coursesNode = FirebaseDatabase.getInstance().getReference("courses");  // Connect database
         // Create objects for UI components
         courseCode = findViewById(R.id.course_code_detail);
         courseName = findViewById(R.id.course_name_detail);
@@ -57,15 +55,24 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         description = findViewById(R.id.editTextTextMultiLine);
         saveBtn = findViewById(R.id.button);
         addLecture = findViewById(R.id.addLecture);
-        firstLecture = findViewById(R.id.firstLecture);
-        secondLecture = findViewById(R.id.secondLecture);
+        lectureRecyclerView = findViewById(R.id.recycleViewLectures);
+
+        // Adapter set up
+        lectureList = new ArrayList<>();
+        lectureAdapter = new LectureAdapter(lectureList, this);
+
+        // Set up recycler view
+        lectureRecyclerView.setHasFixedSize(true);
+        lectureRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        lectureRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); // Item divider
+        lectureRecyclerView.setAdapter(lectureAdapter);
 
         // Pass course information
         String courseCodeStr = getIntent().getStringExtra("COURSE CODE");
         courseCode.setText(courseCodeStr);
 
         // Check if the instructor is assigned to this course yet on start
-        coursesNode.addValueEventListener(new ValueEventListener() {
+        listCoursesDb.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -77,18 +84,15 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                     Integer capacityStr = course.getCapacity();
                     ArrayList<Lecture> lectures = course.getLectures();
 
-                    String lecture1Str = lectures.get(0).getDay() + " " + lectures.get(0).getTime();
-                    String lecture2Str = lectures.get(1).getDay() + " " + lectures.get(1).getTime();
-
                     courseName.setText(courseNameStr); // Show the data
                     String nameInstructor = getIntent().getStringExtra("INSTRUCTOR NAME");
                     if (instructorName.equals(nameInstructor)) {
                         teachThisCourseCheckbox.setChecked(true);
                         capacity.setText(String.valueOf(capacityStr));
                         description.setText(descriptionStr);
-                        firstLecture.setText(lecture1Str);
-                        secondLecture.setText(lecture2Str);
+                        if (lectures != null) { lectureList.addAll(lectures); }
                     }
+                    lectureAdapter.notifyDataSetChanged();
                     checkBox();
                 }
             };
@@ -111,18 +115,19 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             }
         });
 
-        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving
+        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving TODO need to add not remove when updating
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (lectures.size() == 2) {
-                    Toast.makeText(getApplicationContext(), "Maximum 2 lectures per course", Toast.LENGTH_SHORT).show();
+                if (lecturesHours.getText().toString().isEmpty() || lecturesDay.getText().toString().isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Missing information", Toast.LENGTH_SHORT).show();
                 } else {
                     Lecture lecture = new Lecture(lecturesHours.getText().toString(), lecturesDay.getText().toString());
                     lectures.add(lecture);
                     lecturesDay.setText("");
                     lecturesHours.setText("");
                     Toast.makeText(getApplicationContext(), "Added", Toast.LENGTH_SHORT).show();
+                    lectureAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -145,10 +150,10 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                 }
 
                 if (checkBox() && capacityInt != 0 && !descriptionStr.isEmpty() && !lectures.isEmpty()) {
-                    coursesNode.child(courseCodeStr).child("instructor").setValue(instructorName);
-                    coursesNode.child(courseCodeStr).child("capacity").setValue(capacityInt);
-                    coursesNode.child(courseCodeStr).child("description").setValue(descriptionStr);
-                    coursesNode.child(courseCodeStr).child("lectures").setValue(lectures);
+                    listCoursesDb.child(courseCodeStr).child("instructor").setValue(instructorName);
+                    listCoursesDb.child(courseCodeStr).child("capacity").setValue(capacityInt);
+                    listCoursesDb.child(courseCodeStr).child("description").setValue(descriptionStr);
+                    listCoursesDb.child(courseCodeStr).child("lectures").setValue(lectures);
                     finish();
                     Toast.makeText(EditCourseAsInstructor.this, "Course successfully assigned to you", Toast.LENGTH_SHORT).show();
                 }
@@ -173,10 +178,10 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                 teachThisCourseCheckbox.setChecked(false);
                 checkBox();
                 // Remove the data of the course from the database
-                coursesNode.child(courseCode).child("instructor").setValue("TBD");
-                coursesNode.child(courseCode).child("capacity").setValue(0);
-                coursesNode.child(courseCode).child("description").setValue("");
-                coursesNode.child(courseCode).child("lectures").setValue("");
+                listCoursesDb.child(courseCode).child("instructor").setValue("TBD");
+                listCoursesDb.child(courseCode).child("capacity").setValue(0);
+                listCoursesDb.child(courseCode).child("description").setValue("");
+                listCoursesDb.child(courseCode).child("lectures").setValue(null);
                 finish();
             }
         });

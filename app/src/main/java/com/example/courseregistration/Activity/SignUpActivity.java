@@ -61,8 +61,8 @@ public class SignUpActivity extends AppCompatActivity {
                 String password3 = password.getText().toString();
                 String usertype3 = usertype.getText().toString();
 
-                User helper = new User(name3,username3,email3,password3,usertype3);
-                reference.child(username3).setValue(helper);
+                User user = new User(name3,username3,email3,password3,usertype3);
+                reference.child(username3).setValue(user);
 
               //  UserHelper admin = new UserHelper("admin", "admin123");
                // reference.child("admin").setValue(admin);

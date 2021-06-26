@@ -6,60 +6,58 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.courseregistration.Class.Course;
+import com.example.courseregistration.Class.Lecture;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
-public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
+public class LectureAdapter extends RecyclerView.Adapter<LectureAdapter.MyViewHolder> {
 
-    ArrayList<Course> courseList;
-    ArrayList<Course> courseListAll;
+    ArrayList<Lecture> lectureList;
+    ArrayList<Lecture> lectureListAll;
     Context context;
     OnItemClickListener mListener;
 
-    public CourseAdapter(ArrayList<Course> courseList, Context context) {
-        this.courseList = courseList;
-        this.courseListAll = new ArrayList<>(courseList);
+    public LectureAdapter(ArrayList<Lecture> lectureList, Context context ) {
+        this.lectureList = lectureList;
+        this.lectureListAll = new ArrayList<>(lectureList);
         this.context = context;
     }
 
     @NotNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.course_item_display, parent, false);
+        View v = LayoutInflater.from(context).inflate(R.layout.lecture_item_display, parent, false);
         return new MyViewHolder(v, mListener);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull CourseAdapter.MyViewHolder holder, int position) {
-        Course course = courseList.get(position);
-        holder.courseCode.setText(course.getCode());
-        holder.courseName.setText(course.getName());
-        holder.instructorName.setText(course.getInstructor());
+    public void onBindViewHolder(@NonNull @NotNull LectureAdapter.MyViewHolder holder, int position) {
+        Lecture lecture = lectureList.get(position);
+        holder.day.setText(lecture.getDay());
+        holder.time.setText(lecture.getTime());
     }
 
     @Override
     public int getItemCount() {
-        return courseList.size();
+        return lectureList.size();
     }
 
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void SetOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        TextView courseCode, courseName, instructorName;
+        TextView day, time;
 
         public MyViewHolder(@NonNull @NotNull View itemView, final OnItemClickListener listener) {
             super(itemView);
-            courseCode = itemView.findViewById(R.id.display_course_code);
-            courseName = itemView.findViewById(R.id.display_course_name);
-            instructorName = itemView.findViewById(R.id.display_instructor_name);
+            day = itemView.findViewById(R.id.display_lecture_day);
+            time = itemView.findViewById(R.id.display_lecture_hours);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -73,6 +71,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
                 }
             });
         }
+
     }
 
 }
