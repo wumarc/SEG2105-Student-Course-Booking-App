@@ -57,9 +57,29 @@ public class SignUpActivity extends AppCompatActivity {
 
                 String username3 = username.getText().toString();
                 String name3 = name.getText().toString();
+        /**
+                if (isValidName(name3)==true){
+                    System.out.println("Valid Name");
+
+
+                }else{
+                    System.out.println("Invalid Name");
+                    name.setError("Invalid name");
+                    return;
+                }
+         */
                 String email3 = email.getText().toString();
                 String password3 = password.getText().toString();
+
                 String usertype3 = usertype.getText().toString();
+                if (validUserType(usertype3)==true){
+                    System.out.println("Valid User type");
+                }
+                else{
+                    System.out.println("Invalid user type");
+                    usertype.setError("Invalid user type");
+                    return;
+                }
 
                 User user = new User(name3,username3,email3,password3,usertype3);
                 reference.child(username3).setValue(user);
@@ -92,8 +112,8 @@ public class SignUpActivity extends AppCompatActivity {
             email.setError("Enter email please");
             return;
         }
-        if (TextUtils.isEmpty((name2))) {
-            name.setError("Enter name please");
+        if (TextUtils.isEmpty((name2)) || isValidName(name2)==false) {
+            name.setError("Enter valid name please");
             return;
         }
         if (TextUtils.isEmpty((password2))) {
@@ -138,7 +158,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private Boolean isValidemail(CharSequence target){
+    public static Boolean isValidemail(CharSequence target){
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
@@ -148,6 +168,20 @@ public class SignUpActivity extends AppCompatActivity {
             InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+    }
+
+    public static boolean isValidName(String name){
+
+        return name.matches("[a-zA-Z][a-zA-Z ]+");
+    }
+
+    public static boolean validUserType(String userType){
+        if (userType.equals("Student") || userType.equals("student") || userType.equals("Instructor") || userType.equals("instructor")){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 
 }

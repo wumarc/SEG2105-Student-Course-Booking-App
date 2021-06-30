@@ -1,5 +1,7 @@
 package com.example.courseregistration;
 
+import com.example.courseregistration.Activity.SignUpActivity;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -10,8 +12,23 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+    //@Test
+    //public void addition_isCorrect() {
+        //assertEquals(4, 2 + 2);
+    //}
+
     @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+    public void testValidNameReturnsTrue(){
+        assertTrue(SignUpActivity.isValidName("Wasi"));
     }
+
+    @Test
+    public void testValidNameReturnsFalse(){
+        assertFalse(SignUpActivity.isValidName("W4si"));
+    }
+
+    //@Test
+   // public void testValidEmailReturnTrue(){
+     //   assertTrue(SignUpActivity.isValidemail("wasinasary@gmail.com"));
+    //}
 }
