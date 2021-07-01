@@ -3,6 +3,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,13 +15,13 @@ import java.util.ArrayList;
 public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHolder> {
 
     ArrayList<Course> courseList;
-    ArrayList<Course> courseListAll;
+    ArrayList<Course> FilteredCourseList;
     Context context;
     OnItemClickListener mListener;
 
     public CourseAdapter(ArrayList<Course> courseList, Context context) {
         this.courseList = courseList;
-        this.courseListAll = new ArrayList<>(courseList);
+        this.FilteredCourseList = courseList;
         this.context = context;
     }
 
@@ -42,6 +44,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
     public int getItemCount() {
         return courseList.size();
     }
+
 
     public interface OnItemClickListener {
         void onItemClick(int position);

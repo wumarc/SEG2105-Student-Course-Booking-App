@@ -9,8 +9,7 @@ public class Course {
     public ArrayList<Student> students;
     public ArrayList<Lecture> lectures;
 
-    public Course() {
-    }
+    public Course() {}
 
     public Course(String name, String code, String description, int capacity, String instructor, ArrayList<Student> students, ArrayList<Lecture> lectures) {
         this.name = name;

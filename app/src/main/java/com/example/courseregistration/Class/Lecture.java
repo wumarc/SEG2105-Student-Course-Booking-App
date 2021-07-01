@@ -2,7 +2,7 @@ package com.example.courseregistration.Class;
 
 public class Lecture {
 
-    String time, day;
+    private String time, day;
 
     public Lecture() {};
 

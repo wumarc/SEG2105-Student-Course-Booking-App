@@ -53,7 +53,7 @@ public class InstructorMenu extends Activity {
         coursesRecyclerView = findViewById(R.id.coursesRecyclerView);
 
         // Hello message
-        String welcomeStr = "Welcome " + getIntent().getStringExtra("NAME") + " you are signed in as an instructor";
+        String welcomeStr = "Welcome, " + getIntent().getStringExtra("NAME") + ". You are signed in as an instructor";
         welcomeText.setText(welcomeStr);
 
         // Adapter set up
@@ -142,9 +142,14 @@ public class InstructorMenu extends Activity {
                 filteredList.add(object);
             }
         }
-        CourseAdapter filteredCourseAdapter = new CourseAdapter(filteredList, this);
-        coursesRecyclerView.setAdapter(filteredCourseAdapter);
-        courseAdapter.notifyDataSetChanged();
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "No course found...", Toast.LENGTH_SHORT).show();
+        } else {
+            CourseAdapter filteredCourseAdapter = new CourseAdapter(filteredList, this);
+            coursesRecyclerView.setAdapter(filteredCourseAdapter);
+            courseAdapter.notifyDataSetChanged();
+        }
     }
 
 }

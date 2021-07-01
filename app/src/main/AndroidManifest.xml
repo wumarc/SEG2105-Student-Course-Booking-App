@@ -13,16 +13,15 @@
         <activity android:name=".Activity.InstructorActivity.EditCourseAsInstructor" />
         <activity
             android:name=".Activity.MainActivity"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".Activity.SignUpActivity"
-            android:windowSoftInputMode="stateHidden" />
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".Activity.AdminActivity.AdminMenu"
             android:windowSoftInputMode="stateHidden" />
