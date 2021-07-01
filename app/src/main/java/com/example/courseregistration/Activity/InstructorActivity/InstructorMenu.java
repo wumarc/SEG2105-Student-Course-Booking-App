@@ -1,8 +1,10 @@
 package com.example.courseregistration.Activity.InstructorActivity;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -101,10 +103,17 @@ public class InstructorMenu extends Activity {
             }
         });
 
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchBar.setIconified(false);
+            }
+        });
         searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                return false;
+                searchBar.clearFocus();
+                return true;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
