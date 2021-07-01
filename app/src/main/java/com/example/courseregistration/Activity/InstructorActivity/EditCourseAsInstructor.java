@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -106,16 +108,16 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 boolean checked = checkBox();
-                if (checked) {
-                    saveBtn.setEnabled(true);
-                } else {
+                if (!checked) {
                     openDialog(courseCodeStr); // open only when they un-assign themselves
                     checkBox(); // Disable EditText field
+                } else {
+                    saveBtn.setEnabled(true);
                 }
             }
         });
 
-        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving TODO need to add not remove when updating
+        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving TODO need to add on top of the existing lectures not remove when updating
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,33 +134,30 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             }
         });
 
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int capacityInt = Integer.parseInt(capacity.getText().toString());
                 String descriptionStr = description.getText().toString();
                 String instructorName = getIntent().getStringExtra("INSTRUCTOR NAME");
 
-                if (capacityInt == 0) {
-                    Toast.makeText(getApplicationContext(), "Please enter the capacity", Toast.LENGTH_SHORT).show();
-                }
-                if (descriptionStr.isEmpty()) {
-                    Toast.makeText(getApplicationContext(), "Description missing", Toast.LENGTH_SHORT).show();
-                }
-                if (lectures.isEmpty()) {
+                if (!isNumeric(capacity.getText().toString())) {
+                    Toast.makeText(getApplicationContext(), "Number(s) not detected, please enter a valid number", Toast.LENGTH_SHORT).show();
+                } else if (Integer.parseInt(capacity.getText().toString()) <= 1 || (Integer.parseInt(capacity.getText().toString()) >= 200)) {
+                        Toast.makeText(getApplicationContext(), "Please enter a valid capacity between 1 and 200 included", Toast.LENGTH_SHORT).show();
+                } else if (lectures.isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Please enter the lecture details", Toast.LENGTH_SHORT).show();
-                }
-
-                if (checkBox() && capacityInt != 0 && !descriptionStr.isEmpty() && !lectures.isEmpty()) {
+                } else if (descriptionStr.isEmpty()) {
+                    Toast.makeText(getApplicationContext(), "Missing description", Toast.LENGTH_SHORT).show();
+                } else {
                     listCoursesDb.child(courseCodeStr).child("instructor").setValue(instructorName);
-                    listCoursesDb.child(courseCodeStr).child("capacity").setValue(capacityInt);
+                    listCoursesDb.child(courseCodeStr).child("capacity").setValue(Integer.parseInt(capacity.getText().toString()));
                     listCoursesDb.child(courseCodeStr).child("description").setValue(descriptionStr);
                     listCoursesDb.child(courseCodeStr).child("lectures").setValue(lectures);
                     finish();
                     Toast.makeText(EditCourseAsInstructor.this, "Course successfully assigned to you", Toast.LENGTH_SHORT).show();
                 }
             }
-
         });
 
     }
@@ -168,7 +167,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         // Create the object of AlertDialog Builder class
         AlertDialog.Builder builder = new AlertDialog.Builder(EditCourseAsInstructor.this);
         builder.setMessage("Do you want to un-assign yourself from this course?");
-        builder.setTitle("Alert !");
+        builder.setTitle("Alert!");
         builder.setCancelable(false); // Set Cancelable false for when the user clicks on the outside the Dialog Box then it will remain show
 
         // Set the positive button with yes name OnClickListener method is use of DialogInterface interface.
@@ -215,6 +214,18 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             saveBtn.setEnabled(false);
             return false;
         }
+    }
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
     }
 
 }

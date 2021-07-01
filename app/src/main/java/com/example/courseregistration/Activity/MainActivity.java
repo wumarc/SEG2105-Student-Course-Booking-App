@@ -1,8 +1,6 @@
 package com.example.courseregistration.Activity;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.courseregistration.Activity.AdminActivity.AdminMenu;
 import com.example.courseregistration.Activity.InstructorActivity.InstructorMenu;
 import com.example.courseregistration.Activity.StudentActivity.StudentMenu;
