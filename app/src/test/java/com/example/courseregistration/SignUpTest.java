@@ -23,4 +23,15 @@ public class SignUpTest {
     public void testValidUserTypeFalse(){
         assertFalse(SignUpActivity.validUserType("teacher"));
     }
+
+    @Test
+    public void testValidPasswordTrue(){assertTrue(SignUpActivity.validPassword("wasi123")); }
+
+    @Test
+    public void testValidPasswordFalse(){
+        assertFalse(SignUpActivity.validPassword("123"));
+
+    }
+
+
 }

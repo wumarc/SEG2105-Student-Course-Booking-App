@@ -119,6 +119,16 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int capacityInt=0;
+                boolean validCapacity = false;
+                if (capacity.getText().toString().matches("-?\\d+(\\.\\d+)?")){
+                    validCapacity=true;
+                    capacityInt = Integer.parseInt(capacity.getText().toString());
+
+                }else {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid number for the capacity", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (lecturesHours.getText().toString().isEmpty() || lecturesDay.getText().toString().isEmpty()) {
                     Toast.makeText(getApplicationContext(), "Missing information", Toast.LENGTH_SHORT).show();
                 } else {
@@ -135,9 +145,18 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int capacityInt = Integer.parseInt(capacity.getText().toString());
+                int capacityInt = 0; //Integer.parseInt(capacity.getText().toString());
                 String descriptionStr = description.getText().toString();
                 String instructorName = getIntent().getStringExtra("INSTRUCTOR NAME");
+                boolean validCapacity = false;
+                if (capacity.getText().toString().matches("-?\\d+(\\.\\d+)?")){
+                    validCapacity=true;
+                    capacityInt = Integer.parseInt(capacity.getText().toString());
+
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please enter a valid number for the capacity", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 if (capacityInt == 0) {
                     Toast.makeText(getApplicationContext(), "Please enter the capacity", Toast.LENGTH_SHORT).show();
@@ -149,7 +168,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please enter the lecture details", Toast.LENGTH_SHORT).show();
                 }
 
-                if (checkBox() && capacityInt != 0 && !descriptionStr.isEmpty() && !lectures.isEmpty()) {
+                if (checkBox() && capacityInt != 0 && !descriptionStr.isEmpty() && !lectures.isEmpty() && validCapacity) {
                     listCoursesDb.child(courseCodeStr).child("instructor").setValue(instructorName);
                     listCoursesDb.child(courseCodeStr).child("capacity").setValue(capacityInt);
                     listCoursesDb.child(courseCodeStr).child("description").setValue(descriptionStr);

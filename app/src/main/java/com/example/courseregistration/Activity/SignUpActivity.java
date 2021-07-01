@@ -116,7 +116,7 @@ public class SignUpActivity extends AppCompatActivity {
             name.setError("Enter valid name please");
             return;
         }
-        if (TextUtils.isEmpty((password2))) {
+        if (TextUtils.isEmpty((password2)) && !validPassword(password2)) {
             password.setError("Enter password please");
             return;
         }
@@ -128,7 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
             usertype.setError("Usertype must be: Instructor or Student");
             return;
         }
-        if (password2.length() < 6) {
+        if (password2.length() < 6 && !validPassword(password2)) {
         password.setError("Password must have more than 5 characters");
         return;
         }
@@ -183,6 +183,12 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
     }
+
+    public static boolean validPassword(String password){
+        return (password.length()>5 && !(password.isEmpty()));
+    }
+
+
 
 }
 
