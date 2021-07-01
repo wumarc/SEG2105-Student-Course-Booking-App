@@ -28,7 +28,7 @@ public class SignUpTest {
     public void testValidPasswordTrue(){assertTrue(SignUpActivity.validPassword("wasi123")); }
 
     @Test
-    public void testValidPasswordFalse(){
+    public void testValidPasswordFalse(){ //
         assertFalse(SignUpActivity.validPassword("123"));
 
     }
