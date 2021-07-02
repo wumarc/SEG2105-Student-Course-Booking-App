@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         password.requestFocus();
                     }
                 } else {
-                    username.setError("username does not exist");
+                    username.setError("username does not exist.");
                     username.requestFocus();
                 }
             }
