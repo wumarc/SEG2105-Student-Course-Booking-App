@@ -27,4 +27,8 @@ public class Lecture {
         this.day = day;
     }
 
+    public boolean equals(Lecture lecture) {
+        return this.time.equalsIgnoreCase(lecture.getTime()) && this.day.equalsIgnoreCase(lecture.getDay());
+    }
+
 }

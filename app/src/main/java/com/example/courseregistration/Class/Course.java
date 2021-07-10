@@ -1,17 +1,19 @@
 package com.example.courseregistration.Class;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Course {
 
     String name, code, description;
     int capacity;
     String instructor;
-    public ArrayList<Student> students;
+    public ArrayList<String> students;
     public ArrayList<Lecture> lectures;
 
     public Course() {}
 
-    public Course(String name, String code, String description, int capacity, String instructor, ArrayList<Student> students, ArrayList<Lecture> lectures) {
+    public Course(String name, String code, String description, int capacity, String instructor, ArrayList<String> students, ArrayList<Lecture> lectures) {
         this.name = name;
         this.code = code;
         this.description = description;
@@ -61,11 +63,11 @@ public class Course {
         this.instructor = instructor;
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<String> getStudents() {
         return students;
     }
 
-    public void setStudents(ArrayList<Student> students) {
+    public void setStudents(ArrayList<String> students) {
         this.students = students;
     }
 
@@ -76,5 +78,18 @@ public class Course {
     public void setLectures(ArrayList<Lecture> lectures) {
         this.lectures = lectures;
     }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("name", name);
+        result.put("code", code);
+        result.put("description", description);
+        result.put("capacity", capacity);
+        result.put("instructor", instructor);
+        result.put("students", students);
+        result.put("lectures", lectures);
+        return result;
+    }
+
 
 }

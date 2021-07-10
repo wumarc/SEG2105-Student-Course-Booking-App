@@ -45,13 +45,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.MyViewHold
         return courseList.size();
     }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
 
     public interface OnItemClickListener {
         void onItemClick(int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        mListener = listener;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

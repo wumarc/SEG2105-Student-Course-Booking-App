@@ -3,8 +3,6 @@ import com.example.courseregistration.Class.Course;
 import com.example.courseregistration.Class.Lecture;
 import com.example.courseregistration.LectureAdapter;
 import com.example.courseregistration.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,8 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -47,7 +43,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course_as_instructor);
 
-        // Create objects for UI components
+        // Create variables for UI components
         courseCode = findViewById(R.id.course_code_detail);
         courseName = findViewById(R.id.course_name_detail);
         teachThisCourseCheckbox = findViewById(R.id.checkBox);

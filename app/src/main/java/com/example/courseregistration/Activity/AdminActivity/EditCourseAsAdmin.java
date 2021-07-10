@@ -15,12 +15,11 @@ public class EditCourseAsAdmin extends Activity {
 
     private TextView codeTView, nameTView;
     private Button backBtn,editBtn;
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
+    private FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+    private DatabaseReference reference = rootNode.getReference("courses");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course_as_admin);
 
@@ -28,18 +27,12 @@ public class EditCourseAsAdmin extends Activity {
         nameTView = findViewById(R.id.coursename1edit);
         backBtn = findViewById(R.id.backbedit);
         editBtn = findViewById(R.id.editbutt);
-
         showData();
-
         String codeStr = codeTView.getText().toString();
-
 
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("courses");
                 String code3 = codeTView.getText().toString();
                 String name3 = nameTView.getText().toString();
 
@@ -51,21 +44,17 @@ public class EditCourseAsAdmin extends Activity {
                 reference.child(code3).child("description").setValue("");
                 reference.child(code3).child("capacity").setValue(0);
 
-
                 // Send uer back to admin page
                 Toast.makeText(EditCourseAsAdmin.this, "Course successfully edited", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(EditCourseAsAdmin.this, AdminMenu.class);
-                startActivity(intent);
+                startActivity(new Intent(EditCourseAsAdmin.this, AdminMenu.class));
                 finish();
-
             }
         });
 
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(EditCourseAsAdmin.this, AdminMenu.class);
-                startActivity(intent);
+                startActivity(new Intent(EditCourseAsAdmin.this, AdminMenu.class));
                 finish();
             }
         });
@@ -73,14 +62,11 @@ public class EditCourseAsAdmin extends Activity {
     }
 
     private void showData() {
-
         Intent intent = getIntent();
         String courseCode = intent.getStringExtra("code");
         String courseName = intent.getStringExtra("name");
-
         codeTView.setText(courseCode);
         nameTView.setText(courseName);
     }
-
 
 }

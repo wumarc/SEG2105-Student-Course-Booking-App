@@ -21,11 +21,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class AdminMenu extends Activity {
 
-    private Button create, edit, deletec, deleteu;
+    private Button create, edit, deleteCourse, deleteUser;
     private EditText course,user;
     private TextView logout;
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
+    private FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
+    private DatabaseReference reference = rootNode.getReference("users");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,22 +34,19 @@ public class AdminMenu extends Activity {
 
         create = findViewById((R.id.newcourseb));
         edit = findViewById(R.id.editcourse4);
-        deletec = findViewById(R.id.deletecourse);
-        deleteu = findViewById(R.id.deleteuser);
+        deleteCourse = findViewById(R.id.deletecourse);
+        deleteUser = findViewById(R.id.deleteuser);
         logout = findViewById(R.id.logoutadmin);
         course = findViewById(R.id.coursenameee);
         user = findViewById(R.id.username21);
 
         // Create a course
         create.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminMenu.this, AddCourseAsAdmin.class);
-                startActivity(intent);
+                startActivity(new Intent(AdminMenu.this, AddCourseAsAdmin.class));
                 finish();
             }
-
         });
 
         // Update a course
@@ -64,18 +61,15 @@ public class AdminMenu extends Activity {
                 checkCourse.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()){
-                            String codefromdb = snapshot.child(givenCourseCode).child("code").getValue(String.class);
-                            String namefromdb = snapshot.child(givenCourseCode).child("name").getValue(String.class);
-
-                                if (codefromdb != null && codefromdb.equals(givenCourseCode)){
-                                    Intent intent5 = new Intent(AdminMenu.this, EditCourseAsAdmin.class);
-
-                                    intent5.putExtra("code", codefromdb);
-                                    intent5.putExtra("name", namefromdb);
-
-                                    startActivity(intent5);
-                                }
+                        if (snapshot.exists()) {
+                            String codeFromDb = snapshot.child(givenCourseCode).child("code").getValue(String.class);
+                            String nameFromDb = snapshot.child(givenCourseCode).child("name").getValue(String.class);
+                            if (codeFromDb != null && codeFromDb.equals(givenCourseCode)){
+                                Intent intent5 = new Intent(AdminMenu.this, EditCourseAsAdmin.class);
+                                intent5.putExtra("code", codeFromDb);
+                                intent5.putExtra("name", nameFromDb);
+                                startActivity(intent5);
+                            }
                         } else {
                             course.setError("Course does not exist");
                         }
@@ -83,17 +77,13 @@ public class AdminMenu extends Activity {
                     @Override
                     public void onCancelled(@NonNull @NotNull DatabaseError error) { }
                 });
-
             }
         });
 
         // Delete course
-        deletec.setOnClickListener(new View.OnClickListener() {
-
+        deleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("courses");
 
                 String code2 = course.getText().toString();
                 Query checkCourse2 = reference.orderByChild("code").equalTo(code2);
@@ -102,7 +92,6 @@ public class AdminMenu extends Activity {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
-
                             String codefromdb = snapshot.child(code2).child("code").getValue(String.class);
                             String namefromdb = snapshot.child(code2).child("name").getValue(String.class);
 
@@ -110,28 +99,21 @@ public class AdminMenu extends Activity {
                                 reference.child(code2).removeValue();
                                 Toast.makeText(AdminMenu.this, "Course successfully deleted", Toast.LENGTH_LONG).show();
                             }
-
                         } else {
                             course.setError("Course does not exist");
                         }
                     }
-
                     @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) { }
-
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {}
                 });
-
             }
-
         });
 
         // Delete user
-        deleteu.setOnClickListener(new View.OnClickListener() {
+        deleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                rootNode = FirebaseDatabase.getInstance();
-                reference = rootNode.getReference("users");
                 String user2 = user.getText().toString();
                 Query checkCourse2 = reference.orderByChild("username").equalTo(user2);
                 checkCourse2.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -139,33 +121,24 @@ public class AdminMenu extends Activity {
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                         if(snapshot.exists()){
                             String usernamefromdb = snapshot.child(user2).child("username").getValue(String.class);
-
-
-                            if(usernamefromdb != null && usernamefromdb.equals(user2)) {
+                            if (usernamefromdb != null && usernamefromdb.equals(user2)) {
                                 reference.child(user2).removeValue();
                                 Toast.makeText(AdminMenu.this, "User successfully deleted", Toast.LENGTH_LONG).show();
                             }
-
-                        }
-                        else {
+                        } else {
                             user.setError("User does not exist");
                         }
                     }
-
                     @Override
-                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                    }
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) {}
                 });
             }
         });
 
-        // Logout
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AdminMenu.this, MainActivity.class);
-                startActivity(intent);
+                startActivity(new Intent(AdminMenu.this, MainActivity.class));
                 finish();
             }
         });

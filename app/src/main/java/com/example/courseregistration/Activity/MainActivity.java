@@ -26,28 +26,24 @@ public class MainActivity extends AppCompatActivity {
     private EditText username, password;
     private Button login;
     private TextView signup;
-//  private ProgressDialog progressdialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Assign UI elements to workable objects
+        // Create variables for UI components
         username = findViewById(R.id.usernamelogin);
         password = findViewById(R.id.passwordlogin);
         login = findViewById(R.id.loginb);
         signup = findViewById(R.id.signupli);
-//      progressdialog = new ProgressDialog(this);
 
         // User login
         login.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 isUser();
             }
-
         });
 
         // User signup
@@ -80,40 +76,36 @@ public class MainActivity extends AppCompatActivity {
         Query checkUser = reference.orderByChild("username").equalTo(enteredUsername);
 
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    // username.setError(null);
-                    String passwordfromdb = snapshot.child(enteredUsername).child("password").getValue(String.class);
-                    String emailfromdb = snapshot.child(enteredUsername).child("email").getValue(String.class);
-                    String namefromdb = snapshot.child(enteredUsername).child("name").getValue(String.class);
-                    String usernamefromdb = snapshot.child(enteredUsername).child("username").getValue(String.class);
+                if (snapshot.exists()) {
+                    String passwordFromDb = snapshot.child(enteredUsername).child("password").getValue(String.class);
+                    String nameFromDb = snapshot.child(enteredUsername).child("name").getValue(String.class);
+                    String usernameFromDb = snapshot.child(enteredUsername).child("username").getValue(String.class);
+                    String userTypeFromDb = snapshot.child(enteredUsername).child("usertype").getValue(String.class);
 
-                    if (passwordfromdb != null && passwordfromdb.equals(enteredPassword)){
-                        //  username.setError(null);
-                        String usertypefromdb = snapshot.child(enteredUsername).child("usertype").getValue(String.class);
-
-                        Intent adminIntent = new Intent(MainActivity.this, AdminMenu.class);
-                        Intent instructorIntent = new Intent(MainActivity.this, InstructorMenu.class);
-                        Intent studentIntent = new Intent(MainActivity.this, StudentMenu.class);
-
-                        if(usertypefromdb != null && usertypefromdb.equalsIgnoreCase("student")){
-                            studentIntent.putExtra("NAME", namefromdb);
+                    if (passwordFromDb != null && passwordFromDb.equals(enteredPassword)) {
+                        if(userTypeFromDb != null && userTypeFromDb.equalsIgnoreCase("student")) {
+                            Intent studentIntent = new Intent(MainActivity.this, StudentMenu.class);
+                            studentIntent.putExtra("NAME", nameFromDb);
+                            studentIntent.putExtra("USERNAME", usernameFromDb);
                             startActivity(studentIntent);
-//                            finish();
-                        } else if(usertypefromdb != null && usertypefromdb.equalsIgnoreCase("instructor")){
-                            instructorIntent.putExtra("NAME", namefromdb);
+                            finish();
+                        } else if (userTypeFromDb != null && userTypeFromDb.equalsIgnoreCase("instructor")) {
+                            Intent instructorIntent = new Intent(MainActivity.this, InstructorMenu.class);
+                            instructorIntent.putExtra("NAME", nameFromDb);
                             startActivity(instructorIntent);
-//                            finish();
+                            finish();
                         } else {
+                            Intent adminIntent = new Intent(MainActivity.this, AdminMenu.class);
                             startActivity(adminIntent);
-//                            finish();
+                            finish();
                         }
-                    } else if (passwordfromdb != null && !passwordfromdb.equals(enteredPassword)){
+                    } else if (passwordFromDb != null && !passwordFromDb.equals(enteredPassword)){
                         password.setError("Wrong password");
                         password.requestFocus();
                     }
+
                 } else {
                     username.setError("username does not exist.");
                     username.requestFocus();

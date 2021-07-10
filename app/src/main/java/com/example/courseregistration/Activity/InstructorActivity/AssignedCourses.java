@@ -24,10 +24,6 @@ import java.util.ArrayList;
 
 public class AssignedCourses extends AppCompatActivity {
 
-    // Database
-    private FirebaseDatabase rootNode;
-    private DatabaseReference reference;
-
     CourseAdapter courseAdapter;
     ArrayList<Course> courseList;
     RecyclerView recyclerView;
@@ -83,7 +79,5 @@ public class AssignedCourses extends AppCompatActivity {
                 Toast.makeText(AssignedCourses.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 }

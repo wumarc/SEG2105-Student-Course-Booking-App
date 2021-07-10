@@ -12,4 +12,6 @@
     <string name="add_lecture">Add lecture</string>
     <string name="hours">Hours:</string>
     <string name="day">Day:</string>
+    <string name="welcome_text">Welcome text</string>
+    <string name="name">name</string>
 </resources>

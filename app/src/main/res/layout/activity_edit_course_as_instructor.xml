@@ -59,6 +59,11 @@
 
     </LinearLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/student_recyclerView"
+        android:layout_width="312dp"
+        android:layout_height="72dp" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -157,8 +162,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleViewLectures"
-        android:layout_width="300dp"
-        android:layout_height="130dp" />
+        android:layout_width="307dp"
+        android:layout_height="87dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"

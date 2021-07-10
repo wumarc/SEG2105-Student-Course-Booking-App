@@ -25,71 +25,56 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignUpActivity extends AppCompatActivity {
 
     private EditText name, email, password, usertype, username;
-    private Button Signup;
-    private TextView signin;
+    private Button signUp;
+    private TextView signIn;
     private ProgressDialog progressdialog;
-    private FirebaseAuth firebaseauth;
-    private FirebaseDatabase rootNode;
+    private final FirebaseAuth firebaseauth = FirebaseAuth.getInstance();
+    private final FirebaseDatabase rootNode = FirebaseDatabase.getInstance();
     private DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        firebaseauth = FirebaseAuth.getInstance();
         name = findViewById(R.id.namesignup);
         username = findViewById(R.id.usernamesu);
         email = findViewById(R.id.emailsignup);
         password = findViewById(R.id.passwordsignup);
         usertype = findViewById(R.id.typesignup);
-        Signup = findViewById(R.id.signupbutton);
+        signUp = findViewById(R.id.signupbutton);
+        signIn = findViewById(R.id.logintvsu);
         progressdialog = new ProgressDialog(this);
-        signin = findViewById(R.id.logintvsu);
 
-        Signup.setOnClickListener(new View.OnClickListener() {
+        signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 closeKeyboard();
-                Register();
-                rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("users");
 
-                String username3 = username.getText().toString();
-                String name3 = name.getText().toString();
-        /**
-                if (isValidName(name3)==true){
-                    System.out.println("Valid Name");
+                String usernameStr = username.getText().toString();
+                String nameStr = name.getText().toString();
+                String emailStr = email.getText().toString();
+                String passwordStr = password.getText().toString();
+                String usertypeStr = usertype.getText().toString();
 
+                Register(nameStr, emailStr, passwordStr, usertypeStr);
 
-                }else{
-                    System.out.println("Invalid Name");
-                    name.setError("Invalid name");
-                    return;
-                }
-         */
-                String email3 = email.getText().toString();
-                String password3 = password.getText().toString();
-
-                String usertype3 = usertype.getText().toString();
-                if (validUserType(usertype3)==true){
+                if (validUserType(usertypeStr)==true){
                     System.out.println("Valid User type");
                 }
                 else{
-                    System.out.println("Invalid user type");
                     usertype.setError("Invalid user type");
                     return;
                 }
 
-                User user = new User(name3,username3,email3,password3,usertype3);
-                reference.child(username3).setValue(user);
-
-              //  UserHelper admin = new UserHelper("admin", "admin123");
-               // reference.child("admin").setValue(admin);
+                User user = new User(nameStr,usernameStr,emailStr,passwordStr,usertypeStr);
+                reference.child(usernameStr).setValue(user);
             }
         });
 
-        signin.setOnClickListener(new View.OnClickListener() {
+        signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 closeKeyboard();
@@ -101,38 +86,32 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void Register() {
-
-        String name2 = name.getText().toString();
-        String email2 = email.getText().toString();
-        String password2 = password.getText().toString();
-        String usertype2 = usertype.getText().toString();
-
-        if (TextUtils.isEmpty(email2)) {
+    private void Register(String nameInput, String emailInput, String passwordInput, String usertypeInput) {
+        if (TextUtils.isEmpty(emailInput)) {
             email.setError("Enter email please");
             return;
         }
-        if (TextUtils.isEmpty((name2)) || isValidName(name2)==false) {
+        if (TextUtils.isEmpty((nameInput)) || isValidName(nameInput)==false) {
             name.setError("Enter valid name please");
             return;
         }
-        if (TextUtils.isEmpty((password2)) && !validPassword(password2)) {
+        if (TextUtils.isEmpty((passwordInput)) && !validPassword(passwordInput)) {
             password.setError("Enter password please");
             return;
         }
-        if (TextUtils.isEmpty((usertype2))) {
+        if (TextUtils.isEmpty((usertypeInput))) {
             usertype.setError("Enter user type please");
             return;
         }
-        if (!usertype2.equalsIgnoreCase("Instructor")  && !usertype2.equalsIgnoreCase("Student")) {
+        if (!usertypeInput.equalsIgnoreCase("Instructor")  && !usertypeInput.equalsIgnoreCase("Student")) {
             usertype.setError("Usertype must be: Instructor or Student");
             return;
         }
-        if (password2.length() < 6 && !validPassword(password2)) {
-        password.setError("Password must have more than 5 characters");
-        return;
+        if (passwordInput.length() < 6 && !validPassword(passwordInput)) {
+            password.setError("Password must have more than 5 characters");
+            return;
         }
-        if(!isValidemail(email2)){
+        if(!isValidEmail(emailInput)){
             email.setError("Invalid email");
             return;
         }
@@ -140,16 +119,15 @@ public class SignUpActivity extends AppCompatActivity {
         progressdialog.setMessage("Do not close the app please...");
         progressdialog.show();
         progressdialog.setCanceledOnTouchOutside(false);
-        firebaseauth.createUserWithEmailAndPassword(email2,password2).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+
+        firebaseauth.createUserWithEmailAndPassword(emailInput, passwordInput).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull @org.jetbrains.annotations.NotNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(SignUpActivity.this, "User successfully signed up", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(SignUpActivity.this,MainActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                     finish();
-                }
-                else{
+                } else{
                     Toast.makeText(SignUpActivity.this, "Sign up failed", Toast.LENGTH_LONG).show();
                 }
                 progressdialog.dismiss();
@@ -158,7 +136,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public static Boolean isValidemail(CharSequence target){
+    public static Boolean isValidEmail(CharSequence target){
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
@@ -171,21 +149,15 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public static boolean isValidName(String name){
-
         return name.matches("[a-zA-Z][a-zA-Z ]+");
     }
 
     public static boolean validUserType(String userType){
-        if (userType.equals("Student") || userType.equals("student") || userType.equals("Instructor") || userType.equals("instructor")){
-            return true;
-        }else{
-            return false;
-        }
-
+        return userType.equalsIgnoreCase("student") || userType.equalsIgnoreCase("instructor");
     }
 
     public static boolean validPassword(String password){
-        return (password.length()>5 && !(password.isEmpty()));
+        return password.length()>5;
     }
 
 

@@ -1,22 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:orientation="vertical">
+
     <TextView
+        android:id="@+id/student_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:text="@string/welcome_text"
+        android:textColor="#000000"
+        android:textStyle="bold|italic" />
+
+    <SearchView
+        android:id="@+id/student_searchBar"
+        android:queryHint="Enter a course code or course name"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" >
+    </SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/student_coursesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="501dp" />
+
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Welcome, you are signed in as a student."
-        android:textSize="20dp"/>
-    <Button
-        android:id="@+id/logoutbs"
-        android:layout_width="200dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="60dp"
-        android:text="Sign out"
-        android:textSize="20dp"
-        android:textAllCaps="false"/>
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/student_showAssignedCoursesBtn"
+            android:layout_width="209dp"
+            android:layout_height="60dp"
+            android:height="200dp"
+            android:text="@string/assigned_courses"
+            android:textAllCaps="false"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/studentSignoutBtn"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:text="@string/sign_out"
+            android:textAllCaps="false"
+            android:textSize="15sp" />
+
+    </LinearLayout>
 
 </LinearLayout>
