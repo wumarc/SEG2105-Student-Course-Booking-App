@@ -41,16 +41,15 @@ public class EnrollDialog extends AppCompatDialogFragment {
 
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     Course course = dataSnapshot.getValue(Course.class);
-                                    boolean sameCourse = course.getCode().equals(coursesStudentWishesToBeEnrolledIn.getCode());
                                     if (course.getStudents() != null) {
-                                        if ( course.getStudents().contains(name) && !sameCourse) {
+                                        if (course.getStudents().contains(name) && !course.getCode().equals(coursesStudentWishesToBeEnrolledIn.getCode())) {
                                             assignedCourses.add(course);
                                         }
                                     }
                                 }
 
                                 // Compares the lectures of the courseCode to assignedCourses
-                                for (int i = 0; i< assignedCourses.size(); i++) { //get the course
+                                for (int i=0; i<assignedCourses.size(); i++) { //get the course
                                     if (assignedCourses.get(i).getLectures() != null) {
                                         for (int j = 0; j<assignedCourses.get(i).getLectures().size(); j++) { //get the lectures of the course
                                             for (Lecture singleLecture : coursesStudentWishesToBeEnrolledIn.getLectures()) { //compare each lecture
@@ -98,7 +97,7 @@ public class EnrollDialog extends AppCompatDialogFragment {
                     ArrayList<String> students = new ArrayList<String>();
                     students.add(username);
                     coursesDbRef.child(courseCode).child("students").setValue(students);
-                    Toast.makeText(getActivity(), "Enrolled!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Enrolled!", Toast.LENGTH_SHORT).show();
                 } else if (!studentsList.contains(username)) { // else if there is already an existing list but student is not enrolled yet
                     studentsList.add(username);
                     coursesDbRef.child(courseCode).child("students").setValue(studentsList);

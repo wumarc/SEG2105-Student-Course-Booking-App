@@ -3,6 +3,7 @@ import com.example.courseregistration.Class.Course;
 import com.example.courseregistration.Class.Lecture;
 import com.example.courseregistration.LectureAdapter;
 import com.example.courseregistration.R;
+import com.example.courseregistration.StudentAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,17 +25,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditCourseAsInstructor extends AppCompatActivity {
 
     TextView courseCode, courseName;
-    EditText capacity, lecturesDay, lecturesHours, students, description;
+    EditText capacity, lecturesDay, lecturesHours, description;
     CheckBox teachThisCourseCheckbox;
     Button addLecture, saveBtn;
     RecyclerView lectureRecyclerView;
+    RecyclerView studentsRecyclerView;
     LectureAdapter lectureAdapter;
+    StudentAdapter studentsAdapter;
     ArrayList<Lecture> lectureList;
+    ArrayList<String> studentsList;
 
     DatabaseReference listCoursesDb = FirebaseDatabase.getInstance().getReference("courses");  // Connect database
 
@@ -54,16 +60,23 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         saveBtn = findViewById(R.id.button);
         addLecture = findViewById(R.id.addLecture);
         lectureRecyclerView = findViewById(R.id.recycleViewLectures);
+        studentsRecyclerView = findViewById(R.id.student_recyclerView);
 
         // Adapter set up
         lectureList = new ArrayList<>();
         lectureAdapter = new LectureAdapter(lectureList, this);
+        studentsList = new ArrayList<>();
+        studentsAdapter = new StudentAdapter(studentsList, this);
 
         // Set up recycler view
         lectureRecyclerView.setHasFixedSize(true);
         lectureRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         lectureRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); // Item divider
         lectureRecyclerView.setAdapter(lectureAdapter);
+        studentsRecyclerView.setHasFixedSize(true);
+        studentsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        studentsRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)); // Item divider
+        studentsRecyclerView.setAdapter(studentsAdapter);
 
         // Pass course information
         String courseCodeStr = getIntent().getStringExtra("COURSE CODE");
@@ -81,6 +94,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                     String descriptionStr = course.getDescription();
                     Integer capacityStr = course.getCapacity();
                     ArrayList<Lecture> lectures = course.getLectures();
+                    ArrayList<String> students = course.getStudents();
 
                     courseName.setText(courseNameStr); // Show the data
                     String nameInstructor = getIntent().getStringExtra("INSTRUCTOR NAME");
@@ -89,8 +103,10 @@ public class EditCourseAsInstructor extends AppCompatActivity {
                         capacity.setText(String.valueOf(capacityStr));
                         description.setText(descriptionStr);
                         if (lectures != null) { lectureList.addAll(lectures); }
+                        if (students != null) { studentsList.addAll(students); }
                     }
                     lectureAdapter.notifyDataSetChanged();
+                    studentsAdapter.notifyDataSetChanged();
                     checkBox();
                 }
             };
@@ -113,7 +129,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
             }
         });
 
-        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving TODO need to add on top of the existing lectures not remove when updating
+        ArrayList<Lecture> lectures = new ArrayList<Lecture>(); // Array to temporarily hold the lectures before saving TODO need to add to the existing lectures list and not delete the old one when updating updating
         addLecture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,6 +172,7 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         });
 
     }
+
 
     private void openDialog(String courseCode) {
 
@@ -222,5 +239,6 @@ public class EditCourseAsInstructor extends AppCompatActivity {
         }
         return true;
     }
+
 
 }

@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/course_code_detail"
             android:layout_width="185dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="225dp" />
 
@@ -53,7 +53,7 @@
         <TextView
             android:id="@+id/course_name_detail"
             android:layout_width="185dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="225dp" />
 
@@ -100,7 +100,7 @@
         <EditText
             android:id="@+id/capacity_detail"
             android:layout_width="185dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="225dp" />
 
@@ -134,7 +134,7 @@
         <EditText
             android:id="@+id/lectures_days"
             android:layout_width="185dp"
-            android:layout_height="50dp"
+            android:layout_height="45dp"
             android:hint="Day"
             tools:layout_editor_absoluteX="155dp"
             tools:layout_editor_absoluteY="225dp" />
@@ -142,7 +142,7 @@
             android:id="@+id/lectures_hours"
             android:layout_width="185dp"
             android:hint="Hours"
-            android:layout_height="50dp" />
+            android:layout_height="45dp" />
         </LinearLayout>
 
     </LinearLayout>
