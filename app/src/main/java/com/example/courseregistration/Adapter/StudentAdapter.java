@@ -1,4 +1,4 @@
-package com.example.courseregistration;
+package com.example.courseregistration.Adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,8 +7,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.courseregistration.Activity.StudentActivity.StudentMenu;
-import com.example.courseregistration.Class.Lecture;
+import com.example.courseregistration.R;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 

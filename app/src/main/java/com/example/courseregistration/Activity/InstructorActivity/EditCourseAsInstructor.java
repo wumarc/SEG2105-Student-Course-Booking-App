@@ -1,9 +1,9 @@
 package com.example.courseregistration.Activity.InstructorActivity;
 import com.example.courseregistration.Class.Course;
 import com.example.courseregistration.Class.Lecture;
-import com.example.courseregistration.LectureAdapter;
+import com.example.courseregistration.Adapter.LectureAdapter;
 import com.example.courseregistration.R;
-import com.example.courseregistration.StudentAdapter;
+import com.example.courseregistration.Adapter.StudentAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class EditCourseAsInstructor extends AppCompatActivity {

@@ -1,8 +1,8 @@
 package com.example.courseregistration;
 import com.example.courseregistration.Activity.SignUpActivity;
-
 import org.junit.Test;
 import static org.junit.Assert.*;
+
 public class SignUpTest {
     @Test
     public void testValidNameReturnsTrue(){
@@ -30,7 +30,6 @@ public class SignUpTest {
     @Test
     public void testValidPasswordFalse(){//
         assertFalse(SignUpActivity.validPassword("123"));
-
     }
 
 

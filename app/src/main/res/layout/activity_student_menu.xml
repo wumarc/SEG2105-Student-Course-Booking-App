@@ -36,7 +36,7 @@
             android:layout_width="209dp"
             android:layout_height="60dp"
             android:height="200dp"
-            android:text="@string/assigned_courses"
+            android:text="Courses enrolled in"
             android:textAllCaps="false"
             android:textSize="15sp" />
 

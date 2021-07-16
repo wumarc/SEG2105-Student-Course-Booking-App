@@ -1,6 +1,6 @@
 package com.example.courseregistration.Activity.InstructorActivity;
 import com.example.courseregistration.Class.Course;
-import com.example.courseregistration.CourseAdapter;
+import com.example.courseregistration.Adapter.CourseAdapter;
 import com.example.courseregistration.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

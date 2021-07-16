@@ -1,9 +1,6 @@
 package com.example.courseregistration;
-
 import com.example.courseregistration.Activity.SignUpActivity;
-
 import org.junit.Test;
-
 import static org.junit.Assert.*;
 
 /**
@@ -22,10 +19,5 @@ public class ExampleUnitTest {
     public void testValidNameReturnsFalse(){
         assertFalse(SignUpActivity.isValidName("W4si"));
     }
-
-    //@Test
-   // public void testValidEmailReturnTrue(){
-     //   assertTrue(SignUpActivity.isValidemail("wasinasary@gmail.com"));
-    //}
 
 }

@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.courseregistration.Activity.MainActivity;
 import com.example.courseregistration.Class.Course;
-import com.example.courseregistration.CourseAdapter;
+import com.example.courseregistration.Adapter.CourseAdapter;
+import com.example.courseregistration.Class.Lecture;
 import com.example.courseregistration.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -106,6 +107,25 @@ public class StudentMenu extends AppCompatActivity {
 
         });
 
+        searchBar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchBar.setIconified(false);
+            }
+        });
+        searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchBar.clearFocus();
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                return false;
+            }
+        });
+
     }
 
     public void openDialog(String courseCode, String name) {
@@ -113,6 +133,30 @@ public class StudentMenu extends AppCompatActivity {
         enrollDialog.setCourseCode(courseCode);
         enrollDialog.setStudentName(name);
         enrollDialog.show(getSupportFragmentManager(), "dialog");
+    }
+
+    private void search (String str) {
+        ArrayList<Course> filteredList = new ArrayList<>();
+        for (Course object : courseList) {
+            ArrayList<Lecture> lectures = object.getLectures();
+            for (Lecture lecture : lectures) {
+                if (lecture.getDay().equals(str)) {
+                    filteredList.add(object);
+                }
+                break;
+                }
+            if (object.getName().toUpperCase().contains(str.toUpperCase()) || object.getCode().toUpperCase().contains(str.toUpperCase())) { // search by day of the week
+                filteredList.add(object);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "No course found...", Toast.LENGTH_SHORT).show();
+        } else {
+            CourseAdapter filteredCourseAdapter = new CourseAdapter(filteredList, this);
+            coursesRecyclerView.setAdapter(filteredCourseAdapter);
+            courseAdapter.notifyDataSetChanged();
+        }
     }
 
 
