@@ -59,8 +59,38 @@ public class UnenrollDialog extends AppCompatDialogFragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {}
         });
+
+
     }
 
+    public static boolean unenrolledTrue(String courseCode, String username){
+        ArrayList<String> courseList = new ArrayList<String>();
+        ArrayList<String> studentList = new ArrayList<String>();
+        courseList.add(courseCode);
+        studentList.add(username);
 
+        if (studentList.contains(username)){
+            return true;
+
+        }else{
+            return false;
+        }
+
+    }
+
+    public static boolean unenrolledFalse(String courseCode, String username) {
+        ArrayList<String> courseList = new ArrayList<String>();
+        ArrayList<String> studentList = new ArrayList<String>();
+        courseList.add(courseCode);
+        studentList.add(username);
+
+        if (!(studentList.contains(username))) {
+            return true;
+
+        } else {
+            return false;
+
+        }
+    }
 
 }

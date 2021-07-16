@@ -108,6 +108,45 @@ public class EnrollDialog extends AppCompatDialogFragment {
             @Override
             public void onCancelled(@NonNull @NotNull DatabaseError error) {}
         });
+
     }
 
+    public static boolean enrolledSuccessfully(String courseCode, String username){
+        ArrayList<String> courseList = new ArrayList<String>();
+        ArrayList<String> studentList = new ArrayList<String>();
+        courseList.add(courseCode);
+        studentList.add(username);
+
+        if (studentList.contains(username)){
+            return true;
+
+        }else{
+            return false;
+        }
+
+    }
+
+    public static boolean notEnrolledSuccessfully(String courseCode, String username) {
+        ArrayList<String> courseList = new ArrayList<String>();
+        ArrayList<String> studentList = new ArrayList<String>();
+        courseList.add(courseCode);
+        studentList.add(username);
+
+        if (!(studentList.contains(username))) {
+            return true;
+
+        } else {
+            return false;
+
+        }
+    }
+
+    public static boolean fullCapacity(String CourseCode){
+        int capacity = 0;
+        if (capacity>=200){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }
